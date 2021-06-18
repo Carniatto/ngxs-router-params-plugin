@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { Add } from './app.state';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ngxs-param-plugin';
+  @Select((app: any) => app) state$!: Observable<number>;
+  
+  constructor(private store: Store) {}
+
+  onClick(value: string) {
+    this.store.dispatch(new Add(value));
+  }
 }
